@@ -15,6 +15,7 @@
     </properties>
 
     <build>
+        <finalName>worker</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -27,6 +28,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+
                 </configuration>
                 <executions>
                     <execution>

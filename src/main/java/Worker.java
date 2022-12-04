@@ -34,7 +34,7 @@ public class Worker{
     public void start(){
         while(true){
             List<Message> messages;
-            try { //todo try on everything
+            try {
                 messages = sqs.receiveOneMessageFromQueue(MANAGER_TO_WORKERS_QUEUE);
 
                 for(Message message: messages){
@@ -49,10 +49,7 @@ public class Worker{
                         String text = tess.doOCR(img);
 
                         msg = "name:" + appName+"\n" + "imageUrl:" + imgUrl + "\n"+ "text:" + text;
-                    }catch (TesseractException e){
-                        System.out.println("Tesseract Exception : " + e.getMessage());
-                        msg = "name:" + appName+"\n" + "imageUrl:" + imgUrl + "\n"+ "error:" + e.getMessage();
-                    } catch (IOException e) {
+                    }catch (TesseractException | IOException e){
                         msg = "name:" + appName+"\n" + "imageUrl:" + imgUrl + "\n"+ "error:" + e.getMessage();
                     }
                     sqs.sendMessageToQueue(WORKERS_TO_MANAGER_QUEUE, msg);
